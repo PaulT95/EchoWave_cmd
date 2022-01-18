@@ -174,7 +174,7 @@ public partial class EchoWII
         return;
     }
 
-    public void SendFreezeRunCommand() //attention because it will do for both. That's okay after saving!
+    public void SendFreezeRunCommand() //attention because it will do for both
     {
         if (hwnd_arr == null)
             return;
@@ -188,7 +188,7 @@ public partial class EchoWII
         }
     }
 
-    public void SendFreezeCommand() //attention because it will do for both. That's okay after saving!
+    public void SendFreezeCommand() // Just freeze
     {
         if (hwnd_arr == null)
             return;
@@ -202,7 +202,7 @@ public partial class EchoWII
         }
     }
 
-    public void SendRunCommand() //attention because it will do for both. That's okay after saving!
+    public void SendRunCommand() //just Run
     {
         if (hwnd_arr == null)
             return;
@@ -216,7 +216,7 @@ public partial class EchoWII
         }
     }
 
-    public void PlayVideo(string filename)
+    public void PlayVideo(string filename) //just play
     {
         if (hwnd_arr == null)
             return;
