@@ -19,9 +19,10 @@ The commands are:
 
 Example in Spike:
 
-ProgRun(“EchoWave_CMD.exe Save file/path/name”);
-ProgRun(EchoWave_CMD.exe Tap)
-ProgRun(EchoWave_CMD.exe Freeze)
-ProgRun(EchoWave_CMD.exe Run)
+ProgRun(“Path/To/EchoWave_CMD.exe Save file/path/name”);
+ProgRun("Path/To/EchoWave_CMD.exe Tap")
+ProgRun("Path/To/EchoWave_CMD.exe Freeze")
+ProgRun("Path/To/EchoWave_CMD.exe Run")
 
 
+It's useful in case you don't or you can't create a sequencer file and you don't want to run manually echowave everytime
