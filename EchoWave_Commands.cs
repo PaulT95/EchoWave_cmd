@@ -12,24 +12,20 @@ using System.Runtime.InteropServices;
 // See https://aka.ms/new-console-template for more information
 
 //Initialize variables
-string instruct = ""; //initi
+string instruct = "Nothing"; //set to nothing
 string filename = ""; //initialize filename as empty
 
-//check if you insert a Line Argument after calling the .exe file
-if (Environment.GetCommandLineArgs()[1] != null)
-{
-    instruct = Environment.GetCommandLineArgs()[1]; //get command
-    //filename = Environment.GetCommandLineArgs()[2]; //get argument one not zero because it corresponds to EcoSave.dll
-}
 
-if (Environment.GetCommandLineArgs()[2] != null)
-{
-    filename = Environment.GetCommandLineArgs()[2]; //get argument two 
+if (args.Length > 1) {
+    instruct = args[0];
+    filename = args[1]; //get argument two 
 }
-//Console.WriteLine(filename);
+else {
+    instruct = args[0];   
+}
 
 // Create an EcoObj based on EchoWII class created below
-public EchoWII EcoObj = new EchoWII();
+EchoWII EcoObj = new EchoWII();
 
 // Find windows of EchoWave II and return as a string
 string EchoWins = EcoObj.FindWindows();
@@ -37,12 +33,59 @@ string EchoWins = EcoObj.FindWindows();
 Console.WriteLine("EchoWave II instances open: " + EchoWins);
 //Console.ReadLine(); //wait until someone press a button or click
 
-Console.WriteLine("You have chose to " + instruct);
+Console.WriteLine("You chose to " + instruct);
 
 // evoke the switch case
 StringSwitchCase(instruct, filename, EcoObj);
 
 Thread.Sleep(2000); //just time for reading the sentence
+
+
+
+// method for checking the input argument(s) using switch case
+
+/// <summary>
+/// /////////////////////////////////////////////////////////////////////////////
+/// </summary>
+static void StringSwitchCase(string instruction, string filename, EchoWII EcoObj)
+{
+    switch (instruction)
+    {
+
+        case "Save":
+            EcoObj.SendSaveTVDCommand(filename);
+            Console.WriteLine("Save it!");
+            break;
+
+        case "Tap":  //freeze-unFreeze
+            EcoObj.SendFreezeRunCommand(); // it will start or stop depending on echowave status
+            break;
+
+        case "Freeze":
+            EcoObj.SendFreezeCommand(); // Freeze
+            break;
+
+        case "Run":
+            EcoObj.SendRunCommand(); // Run
+            break;
+
+        case "Play": //play-pause current file open
+            EcoObj.PlayVideo(filename);
+            break;
+
+        case "Close":
+            EcoObj.CloseEW();
+            Console.WriteLine("Cheers!");
+            Thread.Sleep(2000); //just time for reading the sentence
+            break;
+
+        default:
+            Console.WriteLine("No command found!");
+            break;
+
+    }
+}
+
 
 // Create a Class EchoWII with DLL needed
 /// <summary>
@@ -87,7 +130,7 @@ public partial class EchoWII
         hwnd_arr = new ArrayList();
         EnumWindows(new EnumWindowsProc(EnumTheWindows), IntPtr.Zero);
         string num_windows = (hwnd_arr.Count).ToString();
-        return(num_windows); //return num of strings
+        return (num_windows); //return num of strings
         // this.found_windows_label.Text = (hwnd_arr.Count).ToString();
     }
 
@@ -235,47 +278,22 @@ public partial class EchoWII
 
         return;
     }
+
+    public void CloseEW() //just close
+    {
+        if (hwnd_arr == null)
+            return;
+        String cmd_str;
+
+        cmd_str = "-exit";
+
+        for (int i1 = 0; i1 < (hwnd_arr.Count); i1++)
+        {
+            SendString((IntPtr)(hwnd_arr[i1]), 100001, cmd_str);
+        }
+    }
     private string GetDebuggerDisplay()
     {
         return ToString();
     }
-}
-
-// method for checking the input argument using switch case
-void StringSwitchCase(string instruction, string filename, EchoWII EcoObj)
-{
-   switch (instruction)
-   {
-
-   case "Save":
-      EcoObj.SendSaveTVDCommand(filename);
-      Console.WriteLine("Save it!");
-   break;
-
-   case "Tap":  //freeze-unFreeze
-      EcoObj.SendFreezeRunCommand(); // it will start or stop depending on echowave status
-   break;
-
-   case "Freeze":
-        EcoObj.SendFreezeCommand(); // Freeze
-   break;
-
-   case "Run":
-        EcoObj.SendRunCommand(); // Run
-   break;   
-
-   case "Play": //play-pause current file open
-      EcoObj.PlayVideo(filename);
-   break;
-
-   case "Close":
-      Console.WriteLine("Cheers!");
-      Thread.Sleep(2000); //just time for reading the sentence
-   break;
-
-   default:
-      Console.WriteLine("No command found!");
-   break;
-   
-   }
 }
