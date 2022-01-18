@@ -1,7 +1,7 @@
 # EchoWave_cmd
 CMD interface to connect to all EchoWave II instances opened. To properly detected them, they can’t be minimaze, also if you trigger the device but EchoWave is reduced it won’t work. 
 
-Here are a list of command that you can use to control EchoWave II from other program like Spike. 
+Here are a list of commands that you can use to control EchoWave II from other program like Spike. 
 
 The commands are:
 
