@@ -13,7 +13,7 @@ The commands are:
 
 - “Run” —> it will just Run
 
-- “Play + filename ” —> it will play the selected filename
+- “Play (+ filename) ” —> it will play the selected filename or the one that is opened 
 
 - “Close” —> it will close the EchoWave instances
 
